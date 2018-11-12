@@ -60,6 +60,7 @@ function login(callback) {
                   secretKey : AWS.config.credentials.secretAccessKey, // REQUIRED
                   sessionToken : AWS.config.credentials.sessionToken
                 };
+                apigClient = apigClientFactory.newClient(config);
                 callback(config);
             }
         });
@@ -95,21 +96,13 @@ function getCurrentUser(callback) {
                     [authenticator] : session.getIdToken().getJwtToken()
                 }
             });
-            config = {
-              apiKey : 'Aw6Pqn4Ef51vqKQg1nxgn6kdKU5ijBNuBxqPLL91',
-              invokeUrl : 'https://bt3rsxq007.execute-api.us-west-2.amazonaws.com/test',
-              region : REGION,
-              accessKey : AWS.config.credentials.accessKeyId, // REQUIRED
-              secretKey : AWS.config.credentials.secretAccessKey, // REQUIRED
-              sessionToken : AWS.config.credentials.sessionToken
-            };
+            callback(null);
         });
     }
     callback(config);
 }
 
 function chatbotResponseUtil() {
-  apigClient = apigClientFactory.newClient(config);
    if (document.getElementById("chatbox").value !== "") {
       lastUserMessage = document.getElementById("chatbox").value;
       messages.push(lastUserMessage);
@@ -127,6 +120,7 @@ function chatbotResponseUtil() {
       };
       var body = {
         "question" : lastUserMessage,
+        //sessionToken : config.sessionToken
       };
       apigClient.invokeApi(params, '/chatbot', 'POST', additionalParams, body).then(function(result) {
         console.log("Sucessfully got chatbot response")
@@ -146,19 +140,12 @@ function chatbotResponseUtil() {
 function chatbotResponse() {
   if(loggedIn === false) {
     login(function(res) {
-        config = res;
         console.log('Login complete');
-        console.log(config);
         chatbotResponseUtil();
     });
   }
   else {
-    getCurrentUser(function(res) {
-        config = res;
-        console.log('User verified');
-        console.log(config);
-        chatbotResponseUtil();
-    });
+    chatbotResponseUtil();
   }
 }
 

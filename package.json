@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "amazon-cognito-auth-js": "^1.2.4",
     "amazon-cognito-identity-js": "^3.0.3",
     "aws-api-gateway-client": "^0.2.16",
     "aws-sdk": "^2.353.0",
