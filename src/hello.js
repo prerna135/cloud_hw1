@@ -110,16 +110,11 @@ function chatbotResponseUtil() {
       var params = {};
       var additionalParams = {
         headers: {
-          "Access-Control-Allow-Origin" : "*",
-          "Access-Control-Allow-Credentials" : true,
-          "Access-Control-Allow-Methods" : "'GET, POST, PATCH, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
-          "Content-Type" : "application/json",
         },
         queryParams: {}
       };
       var body = {
-        "question" : lastUserMessage,
+        question : lastUserMessage,
         //sessionToken : config.sessionToken
       };
       apigClient.invokeApi(params, '/chatbot', 'POST', additionalParams, body).then(function(result) {

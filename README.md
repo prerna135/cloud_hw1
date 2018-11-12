@@ -5,5 +5,7 @@
 ```
 npm install
 npm install aws-api-gateway-client
+npm install --save amazon-cognito-identity-js
+npm install aws-sdk
 npm start
 ```
